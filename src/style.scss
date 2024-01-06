@@ -1,0 +1,103 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 1rem;
+  font-family: system-ui, sans-serif;
+  color: black;
+  background-color: white;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.gap-1 {
+  gap: 0.5rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-2 {
+  margin-bottom: 1rem;
+}
+
+.m-0 {
+  margin: 0;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.scene {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:root {
+  --board-padding: 1rem;
+  --slot-size: 40px;
+  --slot-margin: 5px;
+
+  --slot-radius: calc(var(--slot-size) / 2);
+  --board-top-offset: calc(var(--slot-size) * -1 - var(--slot-margin) * 2 - var(--board-padding))
+}
+
+.board {
+  background-color: blue;
+  padding: var(--board-padding);
+  margin-top: calc(var(--board-top-offset) * -1);
+}
+
+.column {
+  box-sizing: content-box;
+  border-radius: var(--slot-radius);
+  position: relative;
+
+  &:hover {
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,1);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: var(--board-top-offset);
+      // top: 0;
+      right: 5px;
+      width: calc(var(--slot-size) - var(--slot-margin));
+      height: calc(var(--slot-size) - var(--slot-margin));
+      border-radius: var(--slot-radius);
+      border: 3px solid var(--current-player-color);
+      background-color: var(--current-player-color);
+    }
+  }
+}
+
+.slot {
+  width: var(--slot-size);
+  height: var(--slot-size);
+  border-radius: var(--slot-radius);
+  border: 3px solid darkblue;
+  margin: var(--slot-margin);
+
+  &.empty {
+    background-color: white;
+  }
+
+  &.player1 {
+    background-color: red;
+  }
+
+  &.player2 {
+    background-color: yellow;
+  }
+}
