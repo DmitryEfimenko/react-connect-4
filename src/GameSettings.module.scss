@@ -1,0 +1,31 @@
+.player-settings {
+  display: flex;
+  gap: .5rem;
+  align-items: end;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+}
+
+input[type='color'],
+label {
+  margin-bottom: .5rem;
+}
+
+input[type="color"] {
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  height: 24px;
+
+  &::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+
+  &::-webkit-color-swatch {
+    border: none;
+  }
+}

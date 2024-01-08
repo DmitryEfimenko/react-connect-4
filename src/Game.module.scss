@@ -1,0 +1,60 @@
+.scene {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.board {
+  background-color: var(--board-color);
+  padding: var(--board-padding);
+  margin-top: calc(var(--board-top-offset) * -1);
+  display: flex;
+
+  .column {
+    position: relative;
+    border-radius: var(--slot-radius);
+  }
+
+  &.interactive {
+    .column {
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 1);
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: var(--board-top-offset);
+          // top: 0;
+          right: 5px;
+          width: calc(var(--slot-size) - var(--slot-margin));
+          height: calc(var(--slot-size) - var(--slot-margin));
+          border-radius: var(--slot-radius);
+          border: 3px solid var(--current-player-color);
+          background-color: var(--current-player-color);
+        }
+      }
+    }
+  }
+}
+
+.slot {
+  width: var(--slot-size);
+  height: var(--slot-size);
+  border-radius: var(--slot-radius);
+  border: 3px solid var(--slot-border-color);
+  margin: var(--slot-margin);
+
+  &.empty {
+    background-color: var(--board-background-color);
+  }
+
+  &.player1 {
+    background-color: var(--player-1-color);
+  }
+
+  &.player2 {
+    background-color: var(--player-2-color);
+  }
+}

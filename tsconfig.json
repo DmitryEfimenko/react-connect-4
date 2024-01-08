@@ -3,6 +3,8 @@
     "jsx": "react-jsx",
     "lib": ["DOM", "ES2022"],
     "moduleResolution": "node",
-    "target": "ES2022"
-  }
+    "target": "ES2022",
+    "allowSyntheticDefaultImports": true,
+    "types": ["node", "jest", "@testing-library/jest-dom"]
+  } 
 }
