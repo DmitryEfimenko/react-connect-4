@@ -1,4 +1,4 @@
-import { Board, Player, Slot } from "./Game.model";
+import { Board, Player, Slot } from './Game.model';
 
 /**
  * @param columns number of columns
@@ -15,7 +15,7 @@ export function createBoard(columns: number, rows: number): Board {
 
 /**
  * @param len length of array to be created
- * @param fn function that returns value of array item. It is a function rather 
+ * @param fn function that returns value of array item. It is a function rather
  * than an item itself to prevent issues related to the mutation of items
  * @returns array of provided length and items
  */
@@ -60,7 +60,7 @@ export function isGameWon(board: Board, colIxSet: number, rowIxSet: number) {
     return true;
   }
 
-  // check horiizontal
+  // check horizontal
   const horizontalSlotsToCheck: Slot[] = [];
   for (let colIx = colIxMin; colIx <= colIxMax; colIx++) {
     const slot = board[colIx]?.[rowIxSet];
@@ -77,7 +77,7 @@ export function isGameWon(board: Board, colIxSet: number, rowIxSet: number) {
   // check diagonal - NorthWest to SouthEast
   const diagSlotsToCheck1: Slot[] = [];
 
-  // diagonnally there could only be 7 slots to check
+  // diagonally there could only be 7 slots to check
   for (let i = 0; i < 7; i++) {
     const col = colIxMin + i;
     const slot = board[col]?.[rowIxMax - i];

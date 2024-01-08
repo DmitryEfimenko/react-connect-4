@@ -1,14 +1,14 @@
 import { FC, useEffect, useState } from 'react';
 
-import { Button } from './common/Button';
-import { GameSettingsModel } from './GameSettings.model';
-import { createBoard, isGameWon } from './GameBoardUtils';
 import { Player } from './Game.model';
+import { createBoard, isGameWon } from './GameBoardUtils';
+import { GameSettingsModel } from './GameSettings.model';
+import { Button } from './common/Button';
 
 import styles from './Game.module.scss';
 
-const BOARD_COLUMNS = 7;
-const BOARD_ROWS = 6;
+export const BOARD_COLUMNS = 7;
+export const BOARD_ROWS = 6;
 
 export interface GameProps {
   gameSettings: GameSettingsModel;
@@ -93,7 +93,7 @@ export const Game: FC<GameProps> = ({ gameSettings, exit }) => {
 
       <hr />
 
-      <h2 className="text-xl text-center">
+      <h2 className="text-xl text-center" data-testid="title">
         {playerTurn === 'player1' ? gameSettings.player1Name : gameSettings.player2Name}{!gameWon && '\'s'}&nbsp;
         {gameWon ? 'Won!' : 'Turn'}
       </h2>
@@ -105,9 +105,10 @@ export const Game: FC<GameProps> = ({ gameSettings, exit }) => {
               key={columnIx}
               className={styles.column + ' flex flex-col'}
               onClick={() => onBoardColumnClick(columnIx)}
+              data-testid={`column-${columnIx}`}
             >
               {column.map((slot, slotIx) => (
-                <div key={slotIx} className={styles.slot + ' ' + styles[slot]}></div>
+                <div key={slotIx} className={styles.slot + ' ' + styles[slot]} data-testid={`slot-${columnIx}-${slotIx}`}></div>
               ))}
             </div>
           ))}
