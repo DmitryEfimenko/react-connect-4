@@ -3,22 +3,8 @@
 @tailwind utilities;
 
 :root {
-  // variables that define general look of the board
-  --board-background-color: theme('colors.slate.200');
-  --board-color: theme('colors.blue.500');
-  --slot-border-color: theme('colors.blue.800');
-  --board-padding: 1rem;
-  --slot-size: 40px;
-  --slot-margin: 5px;
-  --player-1-color: 'red';
-  --player-2-color: 'yellow';
-
-
-  // derived variables based on the variables above
-  --slot-radius: calc(var(--slot-size) / 2);
-
-  // amount of space on top of the board to allow for a disc to appear when user hovers over column
-  --board-top-offset: calc(var(--slot-size) * -1 - var(--slot-margin) * 2 - var(--board-padding))
+  // variables that define general background color of the board
+  --background-color: theme('colors.slate.200');
 }
 
 * {
@@ -27,10 +13,10 @@
 
 body {
   margin: 0;
-  padding: 1rem;
+  padding: 0;
   font-family: system-ui, sans-serif;
   color: black;
-  background-color: var(--board-background-color);
+  background-color: var(--background-color);
 }
 
 

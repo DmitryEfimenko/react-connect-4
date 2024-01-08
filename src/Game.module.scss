@@ -1,3 +1,30 @@
+:root {
+  // variables that define general look of the board
+  --board-color: theme('colors.blue.500');
+  --board-padding: 1rem;
+  --slot-border-color: theme('colors.blue.800');
+  --slot-margin: 5px;
+  --min-slot-size: 20px;
+  --max-slot-size: 60px;
+  --player-1-color: 'red';
+  --player-2-color: 'yellow';
+
+
+  /* derived variables based on the variables above */
+  
+  // calculate slot size so that it is responsive:
+  // take whole available viewport width and subtract all spacing (paddings, margins) that are within the
+  // board, but are not a part of the slots. Devide remaining space by the amount of slots (7) and add a bit of extra padding (5px)
+  // TODO: right now the amount of columns is fixed to 7. In case that number can be changed, wire it being updated
+  // in the component to a CSS variable and use that variable in the calculations below
+  --slot-size: calc((100vw - (var(--slot-margin) * 7 * 2) - (var(--board-padding) * 2)) / 7 - 5px);
+  --slot-radius: calc(max(var(--slot-size), var(--min-slot-size)) / 2);
+
+  // amount of space on top of the board to allow for a disc to appear when user hovers over column
+  --board-top-offset-margins: calc(var(--slot-margin) * 2 + var(--board-padding));
+  --board-top-offset: min(calc(var(--slot-size) + var(--board-top-offset-margins)), calc(60px + var(--board-top-offset-margins)));
+}
+
 .scene {
   display: flex;
   justify-content: center;
@@ -7,7 +34,7 @@
 .board {
   background-color: var(--board-color);
   padding: var(--board-padding);
-  margin-top: calc(var(--board-top-offset) * -1);
+  margin-top: var(--board-top-offset);
   display: flex;
 
   .column {
@@ -25,11 +52,15 @@
         &::before {
           content: '';
           position: absolute;
-          top: var(--board-top-offset);
+          top: calc(var(--board-top-offset) * -1);
           // top: 0;
           right: 5px;
           width: calc(var(--slot-size) - var(--slot-margin));
           height: calc(var(--slot-size) - var(--slot-margin));
+          min-width: var(--min-slot-size);
+          min-height: var(--min-slot-size);
+          max-width: var(--max-slot-size);
+          max-height: var(--max-slot-size);
           border-radius: var(--slot-radius);
           border: 3px solid var(--current-player-color);
           background-color: var(--current-player-color);
@@ -42,12 +73,16 @@
 .slot {
   width: var(--slot-size);
   height: var(--slot-size);
+  min-width: var(--min-slot-size);
+  min-height: var(--min-slot-size);
+  max-width: var(--max-slot-size);
+  max-height: var(--max-slot-size);
   border-radius: var(--slot-radius);
   border: 3px solid var(--slot-border-color);
   margin: var(--slot-margin);
 
   &.empty {
-    background-color: var(--board-background-color);
+    background-color: var(--background-color);
   }
 
   &.player1 {
