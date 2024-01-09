@@ -4,7 +4,7 @@
 
 ## Features:
 
-- Settings component that allows to custommize:
+- Settings component that allows to customize:
   - players' names
   - colors for each players' discs
 - The Game component
