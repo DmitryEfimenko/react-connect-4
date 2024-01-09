@@ -22,7 +22,6 @@ export const Game: FC<GameProps> = ({ gameSettings, exit }) => {
   const [playerTurn, setPlayerTurn] = useState<Player>('player1');
 
   const [gameWon, setGameWon] = useState(false);
-  const [isATie, setIsATie] = useState(false);
 
   const onColumnClick = (clickedColumnIx: number) => {
     let slotIxToOccupy: number;
@@ -46,11 +45,6 @@ export const Game: FC<GameProps> = ({ gameSettings, exit }) => {
         });
       }
     });
-
-    const tie = updatedBoard.every((column) => column.every((slot) => slot !== 'empty'));
-    if (tie) {
-      setIsATie(true);
-    }
 
     setBoard(updatedBoard);
 
@@ -85,6 +79,8 @@ export const Game: FC<GameProps> = ({ gameSettings, exit }) => {
     const root = document.querySelector<HTMLElement>(':root');
     root.style.setProperty('--player-2-color', gameSettings.player2Color);
   }, [gameSettings.player2Color]);
+
+  const isATie = board.every((column) => column.every((slot) => slot !== 'empty'));
 
   const playerName = playerTurn === 'player1' ? gameSettings.player1Name : gameSettings.player2Name;
   let title = '';
