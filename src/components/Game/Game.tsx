@@ -1,9 +1,9 @@
 import { FC, useEffect, useState } from 'react';
 
 import { Player } from './Game.model';
-import { createBoard, isGameWon } from './GameBoardUtils';
-import { GameSettingsModel } from './GameSettings.model';
-import { Button } from './common/Button';
+import { createBoard, isGameWon } from './Utils';
+import { GameSettingsModel } from '../GameSettings/GameSettings.model';
+import { Button } from '../Button/Button';
 
 import styles from './Game.module.scss';
 

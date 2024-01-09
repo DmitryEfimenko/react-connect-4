@@ -1,6 +1,6 @@
 import { act, render } from '@testing-library/react';
 import { BOARD_COLUMNS, BOARD_ROWS, Game } from './Game';
-import { GameSettingsModel } from './GameSettings.model';
+import { GameSettingsModel } from '../GameSettings/GameSettings.model';
 
 describe(Game.name, () => {
   function setup() {
@@ -15,6 +15,7 @@ describe(Game.name, () => {
 
     return {
       getTitle: () => getByTestId('title'),
+      getColumn: (colIx: number) => getByTestId(`column-${colIx}`),
       getSlot: (colIx: number, slotIx: number) => getByTestId(`slot-${colIx}-${slotIx}`),
       getAllColumns: () => getAllByTestId('column-', { exact: false }),
       getAllSlots: () => getAllByTestId('slot-', { exact: false }),
@@ -64,27 +65,50 @@ describe(Game.name, () => {
     expect(getTitle()).toHaveTextContent(`Dima's Turn`);
   });
 
-  describe('Winning the game scenarios', () => {
-    it('winning the game by player 1 should announce the winner and stop the game', () => {
-      const { clickOnColumn, getTitle, getSlot } = setup();
-  
-      act(() => clickOnColumn(1));
-      act(() => clickOnColumn(2));
-      act(() => clickOnColumn(1));
-      act(() => clickOnColumn(2));
-      act(() => clickOnColumn(1));
-      act(() => clickOnColumn(2));
-      act(() => clickOnColumn(1));
-  
-      expect(getTitle()).toHaveTextContent(`Dima Won!`);
+  it('winning the game by player 1 should announce the winner and stop the game', () => {
+    const { clickOnColumn, getTitle, getSlot } = setup();
 
-      act(() => clickOnColumn(2));
+    act(() => clickOnColumn(1));
+    act(() => clickOnColumn(2));
+    act(() => clickOnColumn(1));
+    act(() => clickOnColumn(2));
+    act(() => clickOnColumn(1));
+    act(() => clickOnColumn(2));
+    act(() => clickOnColumn(1));
 
-      // even though the col 2 was clicked, the next empty slot did not get filled
-      expect(getSlot(2, 2)).toHaveClass('empty');
-    });
+    expect(getTitle()).toHaveTextContent(`Dima Won!`);
+
+    act(() => clickOnColumn(2));
+
+    // even though the col 2 was clicked, the next empty slot did not get filled
+    expect(getSlot(2, 2)).toHaveClass('empty');
+  });
     
-    // TODO: test more scenarios
+  it('filling up a column should disable that column', () => {
+    const { clickOnColumn, getColumn } = setup();
+
+    act(() => clickOnColumn(1));
+    act(() => clickOnColumn(1));
+    act(() => clickOnColumn(1));
+    act(() => clickOnColumn(1));
+    act(() => clickOnColumn(1));
+    act(() => clickOnColumn(1));
+
+    expect(getColumn(1)).not.toHaveClass(`interactive`);
+  });
+
+  it('clicking on a filled up column should not work', () => {
+    const { clickOnColumn, getTitle } = setup();
+
+    act(() => clickOnColumn(1));
+    act(() => clickOnColumn(1));
+    act(() => clickOnColumn(1));
+    act(() => clickOnColumn(1));
+    act(() => clickOnColumn(1));
+    act(() => clickOnColumn(1));
+    act(() => clickOnColumn(1));
+
+    expect(getTitle()).toHaveTextContent(`Ana's Turn`);
   });
 
   it('resetting the game should work', () => {

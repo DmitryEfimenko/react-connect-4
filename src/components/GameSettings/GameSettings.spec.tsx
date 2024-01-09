@@ -1,8 +1,8 @@
 import { act, fireEvent, render } from '@testing-library/react';
 import { FC, useState } from 'react';
-import { initialState } from './App';
+import { initialState } from '../../App';
 import { GameSettings } from './GameSettings';
-import { useReducerForModel } from './common/ReduxUtils';
+import { useReducerForModel } from '../../hooks/useReducerForModel';
 
 const GameSettingsTestingHost: FC = () => {
   const [gameSettings, gameSettingsActions] = useReducerForModel(initialState);

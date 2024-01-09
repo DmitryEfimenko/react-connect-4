@@ -1,8 +1,8 @@
 import { FC } from "react";
 
 import { GameSettingsModel } from "./GameSettings.model";
-import { Button } from "./common/Button";
-import { DispatchActions } from "./common/ReduxUtils";
+import { Button } from "../Button/Button";
+import { DispatchActions } from "../../hooks/useReducerForModel";
 
 import styles from './GameSettings.module.scss';
 

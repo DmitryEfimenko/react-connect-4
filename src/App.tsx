@@ -1,9 +1,9 @@
 import { FC, useState } from 'react';
 
-import { Game } from './Game';
-import { GameSettings } from './GameSettings';
-import { GameSettingsModel } from './GameSettings.model';
-import { useReducerForModel } from './common/ReduxUtils';
+import { Game } from './components/Game/Game';
+import { GameSettings } from './components/GameSettings/GameSettings';
+import { GameSettingsModel } from './components/GameSettings/GameSettings.model';
+import { useReducerForModel } from './hooks/useReducerForModel';
 
 import './style.scss';
 
