@@ -14,7 +14,7 @@
   
   // calculate slot size so that it is responsive:
   // take whole available viewport width and subtract all spacing (paddings, margins) that are within the
-  // board, but are not a part of the slots. Devide remaining space by the amount of slots (7) and add a bit of extra padding (5px)
+  // board, but are not a part of the slots. Divide remaining space by the amount of slots (7) and add a bit of extra padding (5px)
   // TODO: right now the amount of columns is fixed to 7. In case that number can be changed, wire it being updated
   // in the component to a CSS variable and use that variable in the calculations below
   --slot-size: calc((100vw - (var(--slot-margin) * 7 * 2) - (var(--board-padding) * 2)) / 7 - 5px);
@@ -36,60 +36,4 @@
   padding: var(--board-padding);
   margin-top: var(--board-top-offset);
   display: flex;
-
-  .column {
-    position: relative;
-    border-radius: var(--slot-radius);
-  }
-
-  &.interactive {
-    .column {
-      cursor: pointer;
-
-      &:hover {
-        box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 1);
-
-        &::before {
-          content: '';
-          position: absolute;
-          top: calc(var(--board-top-offset) * -1);
-          // top: 0;
-          right: 5px;
-          width: calc(var(--slot-size) - var(--slot-margin));
-          height: calc(var(--slot-size) - var(--slot-margin));
-          min-width: var(--min-slot-size);
-          min-height: var(--min-slot-size);
-          max-width: var(--max-slot-size);
-          max-height: var(--max-slot-size);
-          border-radius: var(--slot-radius);
-          border: 3px solid var(--current-player-color);
-          background-color: var(--current-player-color);
-        }
-      }
-    }
-  }
-}
-
-.slot {
-  width: var(--slot-size);
-  height: var(--slot-size);
-  min-width: var(--min-slot-size);
-  min-height: var(--min-slot-size);
-  max-width: var(--max-slot-size);
-  max-height: var(--max-slot-size);
-  border-radius: var(--slot-radius);
-  border: 3px solid var(--slot-border-color);
-  margin: var(--slot-margin);
-
-  &.empty {
-    background-color: var(--background-color);
-  }
-
-  &.player1 {
-    background-color: var(--player-1-color);
-  }
-
-  &.player2 {
-    background-color: var(--player-2-color);
-  }
 }

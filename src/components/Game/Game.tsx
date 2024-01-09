@@ -1,10 +1,11 @@
 import { FC, useEffect, useState } from 'react';
 
+import { Button } from '../Button/Button';
+import { GameSettingsModel } from '../GameSettings/GameSettings.model';
 import { Player } from './Game.model';
 import { createBoard, isGameWon } from './Utils';
-import { GameSettingsModel } from '../GameSettings/GameSettings.model';
-import { Button } from '../Button/Button';
 
+import { Column } from './Column';
 import styles from './Game.module.scss';
 
 export const BOARD_COLUMNS = 7;
@@ -21,13 +22,11 @@ export const Game: FC<GameProps> = ({ gameSettings, exit }) => {
   const [playerTurn, setPlayerTurn] = useState<Player>('player1');
 
   const [gameWon, setGameWon] = useState(false);
+  const [isATie, setIsATie] = useState(false);
 
-  const onBoardColumnClick = (clickedColumnIx: number) => {
-    if (gameWon) {
-      return;
-    }
-
+  const onColumnClick = (clickedColumnIx: number) => {
     let slotIxToOccupy: number;
+
     const updatedBoard = board.map((column, columnIx) => {
       if (clickedColumnIx !== columnIx) {
         return column;
@@ -47,6 +46,11 @@ export const Game: FC<GameProps> = ({ gameSettings, exit }) => {
         });
       }
     });
+
+    const tie = updatedBoard.every((column) => column.every((slot) => slot !== 'empty'));
+    if (tie) {
+      setIsATie(true);
+    }
 
     setBoard(updatedBoard);
 
@@ -82,6 +86,16 @@ export const Game: FC<GameProps> = ({ gameSettings, exit }) => {
     root.style.setProperty('--player-2-color', gameSettings.player2Color);
   }, [gameSettings.player2Color]);
 
+  const playerName = playerTurn === 'player1' ? gameSettings.player1Name : gameSettings.player2Name;
+  let title = '';
+  if (gameWon) {
+    title = `${playerName} Won!`;
+  } else if (isATie) {
+    title = `It's a Tie!`
+  } else {
+    title = `${playerName}'s Turn`;
+  }
+
   return (
     <>
       <hr />
@@ -94,23 +108,20 @@ export const Game: FC<GameProps> = ({ gameSettings, exit }) => {
       <hr />
 
       <h2 className="text-xl text-center" data-testid="title">
-        {playerTurn === 'player1' ? gameSettings.player1Name : gameSettings.player2Name}{!gameWon && '\'s'}&nbsp;
-        {gameWon ? 'Won!' : 'Turn'}
+        {title}
       </h2>
 
       <div className={styles.scene}>
         <div className={styles.board + (!gameWon ? ` ${styles.interactive}` : '')}>
           {board.map((column, columnIx) => (
-            <div
+            <Column
               key={columnIx}
-              className={styles.column + ' flex flex-col'}
-              onClick={() => onBoardColumnClick(columnIx)}
-              data-testid={`column-${columnIx}`}
-            >
-              {column.map((slot, slotIx) => (
-                <div key={slotIx} className={styles.slot + ' ' + styles[slot]} data-testid={`slot-${columnIx}-${slotIx}`}></div>
-              ))}
-            </div>
+              columnIx={columnIx}
+              column={column}
+              gameWon={gameWon}
+              isATie={isATie}
+              onColumnClick={onColumnClick}
+            />
           ))}
         </div>
       </div>

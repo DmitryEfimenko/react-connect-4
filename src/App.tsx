@@ -1,8 +1,7 @@
 import { FC, useState } from 'react';
 
-import { Game } from './components/Game/Game';
-import { GameSettings } from './components/GameSettings/GameSettings';
-import { GameSettingsModel } from './components/GameSettings/GameSettings.model';
+import { Game } from './components/Game';
+import { GameSettings, GameSettingsModel } from './components/GameSettings';
 import { useReducerForModel } from './hooks/useReducerForModel';
 
 import './style.scss';

@@ -1,14 +1,14 @@
 import { act, render, screen } from '@testing-library/react';
 import { App } from './App';
 
-jest.mock("./GameSettings", () => ({
+jest.mock("./components/GameSettings", () => ({
   GameSettings: ({ startGame }) =>
     <div data-testid="GameSettings">
       <button onClick={startGame}>Start</button>
     </div>,
 }));
 
-jest.mock("./Game", () => ({
+jest.mock("./components/Game", () => ({
   Game: () => <div data-testid="Game">Game</div>,
 }));
 

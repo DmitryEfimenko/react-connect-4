@@ -51,7 +51,7 @@ export function isGameWon(board: Board, colIxSet: number, rowIxSet: number) {
     return true;
   }
 
-  // check diagonal - NorthWest to SouthEast
+  // check diagonal - Bottom-Left to Top-Right
   const diagSlotsToCheck1: Slot[] = [];
 
   // diagonally there could only be 7 slots to check
@@ -71,7 +71,7 @@ export function isGameWon(board: Board, colIxSet: number, rowIxSet: number) {
     return true;
   }
 
-  // check diagonal - SouthWest to NorthEast
+  // check diagonal - Top-Left to Bottom-Right
   const diagSlotsToCheck2: Slot[] = [];
   for (let i = 0; i < 7; i++) {
     const col = colIxMin + i;

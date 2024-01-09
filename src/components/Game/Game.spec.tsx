@@ -1,6 +1,6 @@
 import { act, render } from '@testing-library/react';
-import { BOARD_COLUMNS, BOARD_ROWS, Game } from './Game';
 import { GameSettingsModel } from '../GameSettings/GameSettings.model';
+import { BOARD_COLUMNS, BOARD_ROWS, Game } from './Game';
 
 describe(Game.name, () => {
   function setup() {
@@ -97,10 +97,16 @@ describe(Game.name, () => {
     expect(getColumn(1)).not.toHaveClass(`interactive`);
   });
 
-  it('clicking on a filled up column should not work', () => {
+  it('filling up all columns and resulting in a tie should end the game', () => {
     const { clickOnColumn, getTitle } = setup();
 
-    act(() => clickOnColumn(1));
+    act(() => clickOnColumn(0));
+    act(() => clickOnColumn(0));
+    act(() => clickOnColumn(0));
+    act(() => clickOnColumn(0));
+    act(() => clickOnColumn(0));
+    act(() => clickOnColumn(0));
+
     act(() => clickOnColumn(1));
     act(() => clickOnColumn(1));
     act(() => clickOnColumn(1));
@@ -108,7 +114,43 @@ describe(Game.name, () => {
     act(() => clickOnColumn(1));
     act(() => clickOnColumn(1));
 
-    expect(getTitle()).toHaveTextContent(`Ana's Turn`);
+    act(() => clickOnColumn(2));
+    act(() => clickOnColumn(2));
+    act(() => clickOnColumn(2));
+    act(() => clickOnColumn(2));
+    act(() => clickOnColumn(2));
+    act(() => clickOnColumn(2));
+
+    act(() => clickOnColumn(4));
+
+    act(() => clickOnColumn(3));
+    act(() => clickOnColumn(3));
+    act(() => clickOnColumn(3));
+    act(() => clickOnColumn(3));
+    act(() => clickOnColumn(3));
+    act(() => clickOnColumn(3));
+
+    act(() => clickOnColumn(4));
+    act(() => clickOnColumn(4));
+    act(() => clickOnColumn(4));
+    act(() => clickOnColumn(4));
+    act(() => clickOnColumn(4));
+
+    act(() => clickOnColumn(5));
+    act(() => clickOnColumn(5));
+    act(() => clickOnColumn(5));
+    act(() => clickOnColumn(5));
+    act(() => clickOnColumn(5));
+    act(() => clickOnColumn(5));
+
+    act(() => clickOnColumn(6));
+    act(() => clickOnColumn(6));
+    act(() => clickOnColumn(6));
+    act(() => clickOnColumn(6));
+    act(() => clickOnColumn(6));
+    act(() => clickOnColumn(6));
+
+    expect(getTitle()).toHaveTextContent(`It's a Tie!`);
   });
 
   it('resetting the game should work', () => {

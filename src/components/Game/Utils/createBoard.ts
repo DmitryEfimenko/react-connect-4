@@ -1,4 +1,4 @@
-import { Board, Slot } from "../Game.model";
+import { Board, Slot } from '../Game.model';
 
 /**
  * @param columns number of columns
@@ -19,6 +19,6 @@ export function createBoard(columns: number, rows: number): Board {
  * than an item itself to prevent issues related to the mutation of items
  * @returns array of provided length and items
  */
-function createArrayOf<T>(len: number, fn: () => T) {
+export function createArrayOf<T>(len: number, fn: () => T) {
   return Array.from(Array(len), () => fn());
 }

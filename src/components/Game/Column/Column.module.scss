@@ -1,0 +1,53 @@
+.column {
+  position: relative;
+  border-radius: var(--slot-radius);
+  
+  &.interactive {
+    cursor: pointer;
+  
+    &:hover {
+      box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 1);
+  
+      &::before {
+        content: '';
+        position: absolute;
+        top: calc(var(--board-top-offset) * -1);
+        right: 5px;
+        width: calc(var(--slot-size) - var(--slot-margin));
+        height: calc(var(--slot-size) - var(--slot-margin));
+        min-width: var(--min-slot-size);
+        min-height: var(--min-slot-size);
+        max-width: var(--max-slot-size);
+        max-height: var(--max-slot-size);
+        border-radius: var(--slot-radius);
+        border: 3px solid var(--current-player-color);
+        background-color: var(--current-player-color);
+      }
+    }
+  }
+}
+
+
+.slot {
+  width: var(--slot-size);
+  height: var(--slot-size);
+  min-width: var(--min-slot-size);
+  min-height: var(--min-slot-size);
+  max-width: var(--max-slot-size);
+  max-height: var(--max-slot-size);
+  border-radius: var(--slot-radius);
+  border: 3px solid var(--slot-border-color);
+  margin: var(--slot-margin);
+
+  &.empty {
+    background-color: var(--background-color);
+  }
+
+  &.player1 {
+    background-color: var(--player-1-color);
+  }
+
+  &.player2 {
+    background-color: var(--player-2-color);
+  }
+}
